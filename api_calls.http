@@ -1,0 +1,15 @@
+### Step 1: Get Access Token
+@tenant_id = <YOUR_TENANT_ID>
+@sp_client_id = <YOUR_SP_CLIENT_ID>
+@sp_client_secret = <YOUR_SP_CLIENT_SECRET>
+@api_client_id = <YOUR_API_CLIENT_ID>
+
+POST https://login.microsoftonline.com/{{tenant_id}}/oauth2/v2.0/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id={{sp_client_id}}&scope=api://{{api_client_id}}/.default&client_secret={{sp_client_secret}}&grant_type=client_credentials
+
+### Step 2: Call Secure API Endpoint
+# Copy the access_token from the previous response and paste it below
+GET http://localhost:8000/secure-api
+Authorization: Bearer <ACCESS_TOKEN_HERE>

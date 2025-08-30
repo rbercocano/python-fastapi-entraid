@@ -1,0 +1,6 @@
+fastapi==0.111.1
+uvicorn==0.25.0
+python-dotenv==1.0.1
+msal==2.23.0
+requests==2.32.0
+python-jose==3.3.0
