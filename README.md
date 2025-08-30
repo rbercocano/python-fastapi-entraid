@@ -144,8 +144,23 @@ Authorization: Bearer <ACCESS_TOKEN_HERE>
 6. You should see a JSON response indicating successful authentication.
 
 ---
+## **8. Testing with curl**
 
-## **8. Optional: Environment Variables in REST Client**
+** Update placeholders with real values **
+
+```bash
+ACCESS_TOKEN=$(curl -s -X POST https://login.microsoftonline.com/<TENANT_ID>/oauth2/v2.0/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "client_id=<SP_CLIENT_ID>" \
+  -d "scope=api://<API_CLIENT_ID>/.default" \
+  -d "client_secret=<SP_CLIENT_SECRET>" \
+  -d "grant_type=client_credentials" | jq -r .access_token)
+
+curl -X GET http://localhost:8000/secure-data \
+  -H "Authorization: Bearer $ACCESS_TOKEN"
+```
+---
+## **9. Optional: Environment Variables in REST Client**
 
 Create `.vscode/rest-client.env.json`:
 
@@ -164,7 +179,7 @@ Then use `{{variable_name}}` in `api_calls.http` for easier reuse.
 
 ---
 
-## **9. Notes**
+## **10. Notes**
 
 - Tokens expire in ~1 hour — you must request a new token to call the API.  
 - In production (e.g., Azure App Service), store SP secrets in **App Settings** instead of `.env`.  
